@@ -1,5 +1,6 @@
 package br.com.ilanadev.helloviewmodel
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -19,11 +20,16 @@ class MainActivity : AppCompatActivity() {
         setCount(model.count)
 
         model.startTimer()
+        lifecycle.addObserver(model)
 
-        btCount.setOnClickListener { onClickCount() }
+        val observer: Observer<Int> = Observer { i -> setCount(i!!) }
+
+        model.getCount().observe(this, observer)
+
+       // btCount.setOnClickListener { onClickCount() }
     }
 
-    private fun onClickCount() {
+    /*private fun onClickCount() {
         // Incrementar
         val s = tCount.text.toString()
         var i = 0
@@ -33,7 +39,7 @@ class MainActivity : AppCompatActivity() {
             Integer.parseInt(s)
         }
         setCount(++i)
-    }
+    }*/
 
     private fun setCount(i: Int) {
         model.count = i
