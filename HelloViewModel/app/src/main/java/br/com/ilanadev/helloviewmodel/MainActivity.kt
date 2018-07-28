@@ -18,6 +18,8 @@ class MainActivity : AppCompatActivity() {
 
         setCount(model.count)
 
+        model.startTimer()
+
         btCount.setOnClickListener { onClickCount() }
     }
 
